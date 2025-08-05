@@ -63,5 +63,26 @@ This line installs two libraries at once: `ipython-sql` and `prettytable`.
 
 ## 4. `prettytable.DEFAULT = 'DEFAULT'`  
 
-* This line of code ensures that any PrettyTable object created after this line will automatically adopt the default prettytable styling, effectively resetting any previously applied global style changes. This is useful for maintaining consistency or reverting to a known baseline appearance for the tables within a Jupyter Notebook session.
+* This line of code ensures that any PrettyTable object created after this line will automatically adopt the default prettytable styling, effectively resetting any previously applied global style changes. This is useful for maintaining consistency or reverting to a known baseline appearance for the tables within a Jupyter Notebook session.  
+
+# Store the datasets in database tables  
+
+To analyze the data using SQL, it first needs to be loaded into SQLite DB. We will create three tables in as under:  
+
+[CENSUS_DATA](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCensusData.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01)  
+
+[CHICAGO_PUBLIC_SCHOOLS](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoPublicSchools.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01)  
+
+[CHICAGO_CRIME_DATA](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.csv?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01)  
+
+The following line is used to load the pandas and sqlite3 libraries and establish a connection to `FinalDB.db`.  
+
+```Python
+import pandas as pd
+import sqlite3
+
+# Connect to (or create) SQLite database
+
+conn = sqlite3.connect("FinalDB.db")
+```
 
