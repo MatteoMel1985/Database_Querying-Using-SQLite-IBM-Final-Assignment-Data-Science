@@ -86,3 +86,26 @@ import sqlite3
 conn = sqlite3.connect("FinalDB.db")
 ```
 
+## 1. `import pandas as pd`  
+
+* This line imports the `pandas` library and gives it a short alias `pd`.
+
+## 2. `import sqlite3`  
+
+* Imports the built-in Python module `sqlite3`, which facilitates the interaction with SQLite databases.
+
+* SQLite is a lightweight, file-based database system. It doesn’t require a server, as the whole database is stored in a single file. It is great for demos, small projects, and teaching database concepts without needing a full SQL server.
+
+## 3. `conn = sqlite3.connect("FinalDB.db")`  
+
+* This line creates a connection to an SQLite database.
+
+* If the file `FinalDB.db` already exists, it connects to it, and if it doesn’t exist, it creates a new one in the current working directory.
+
+* `conn` is a connection object used to:
+
+    * Run SQL queries;
+    * Read/write tables;
+    * Commit changes;
+    * Close the database when done.
+ 
