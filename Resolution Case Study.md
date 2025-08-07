@@ -161,3 +161,7 @@ As the same formula is applied to the 3 tables by changing varying their names t
 
 * `index=False`: By default, pandas includes the DataFrame’s index (row labels) as a column in the SQL table. Setting `index=False` means not to include the index when writing to the table (ex: If the DataFrame has an indexes like `0, 1, 2,...`, this option prevents pandas from saving it as an extra column in the table.
 
+If executed correctly, you will see the number `533` appearing at the bottom of the cell. That refers to the number of rows of `crime_df`, the last dataframe that was loaded.  
+
+![533](https://github.com/MatteoMel1985/Relational-Dataset-Images/blob/main/Database%20Querying%20images/533.jpg?raw=true)  
+
