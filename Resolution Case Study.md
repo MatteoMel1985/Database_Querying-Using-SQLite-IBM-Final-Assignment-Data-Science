@@ -165,3 +165,45 @@ If executed correctly, you will see the number `533` appearing at the bottom of 
 
 ![533](https://github.com/MatteoMel1985/Relational-Dataset-Images/blob/main/Database%20Querying%20images/533.jpg?raw=true)  
 
+Finally, we can establish a connection between SQL magic module and the database `FinalDB.db` with the following code.  
+
+```Python
+# Load SQL magic
+
+%load_ext sql
+
+# Connect SQL magic to the SQLite database
+
+%sql sqlite:///FinalDB.db
+```
+
+## Load SQL magic  
+
+* `%load_ext` is used to load notebook extensions which, in this specific case, is loading the SQL extension.
+
+## Connect SQL magic to the SQLite database  
+
+It tells SQL Magic to use SQLite, and connect to the file `FinalDB.db` in the current folder.  
+
+* `%sql`: Activates SQL magic for this line.  
+
+* `sqlite:///FinalDB.db` is a SQLAlchemy-style connection string, which means
+
+    * `sqlite://`: Use the SQLite database engine.
+    * `/FinalDB.db`: The relative path to the database file (in this case, in the current directory).
+    * The three slashes `///` indicates a relative path (which is a shortcut that tells the system to look for a file relative to the current working directory (usually wherever the notebook file is).
+ 
+Finally, we are now ready to answer the problem's questions and fill out the cells with the proper SQL strings.  
+
+As all the codes were compiled with SQL Magic strings, I will reported them exactly as written in the Jupyter Notebook, with the initial activation line `%sql`. 
+
+# Problem 1  
+
+## Find the total number of crimes recorded in the CRIME table.  
+
+Its resolution is fairly easy, as it is sufficient to employ the COUNT(*) function from SQL, which computes the number of rows from the table `CHICAGO_CRIME_DATA`.  
+
+```SQL Magic
+%sql SELECT COUNT(*) AS TOTAL_CRIMES FROM CHICAGO_CRIME_DATA;
+```
+
