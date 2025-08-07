@@ -107,5 +107,29 @@ conn = sqlite3.connect("FinalDB.db")
     * Run SQL queries;
     * Read/write tables;
     * Commit changes;
-    * Close the database when done.
+    * Close the database when done.  
  
+Now we are proceeding by loading the SQL magic module and use the `Pandas` to load the data available in the links above to dataframes. These dataframes will be loaded on the database `FinalDB.db` as required tables.  
+
+Following is the code employed to achieve this end.  
+
+```Python
+# URLs of datasets
+
+census_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCensusData.csv"
+schools_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoPublicSchools.csv"
+crime_url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.csv"
+
+# Load into DataFrames
+
+census_df = pd.read_csv(census_url)
+schools_df = pd.read_csv(schools_url)
+crime_df = pd.read_csv(crime_url)
+
+# Load DataFrames into SQLite tables
+
+census_df.to_sql("CENSUS_DATA", conn, if_exists="replace", index=False)
+schools_df.to_sql("CHICAGO_PUBLIC_SCHOOLS", conn, if_exists="replace", index=False)
+crime_df.to_sql("CHICAGO_CRIME_DATA", conn, if_exists="replace", index=False)
+```
+
