@@ -261,3 +261,27 @@ WHERE (LOCATION_DESCRIPTION LIKE '%SCHOOL%');
 
 ## List the type of schools along with the average safety score for each type.  
 
+Solving this question would be relatively simple, if only the attribute "Safety Score " was not originally stored as text in the table; not to mention that its name was also saved with an additional space after "Score ". Ergo, before processing the query, we must first address this issue.  
+
+The following Python line removes any leading or trailing whitespace (such as spaces, tabs, etc., in the cells) from every column name in your DataFrame `schools_df`.  
+
+```Python
+schools_df.columns = schools_df.columns.str.strip()
+```
+
+As we have finally removed any whitespace, we can proceed by converting the attribute `SAFETY_SCORE` into numeric. The string `errors='coerce'` casts all errors or non-convertible data into NaN (not a number), so as to ensure to obtain only numerical data.  
+
+```Python
+schools_df["SAFETY_SCORE"] = pd.to_numeric(schools_df["SAFETY_SCORE"], errors='coerce')
+```
+
+Finally, as the issue is solved, we can write our SQL query. For this, we will start by selecting the attribute `"Elementary, Middle, or High School"` from the `CHICAGO_PUBLIC_SCHOOLS` table, and we will convert it into `SCHOOL_TYPE` to make it easier to digit. Then, we must apply the function `AVG` to `SAFETY_SCORE`, but we also want to round it to only 2 decimals after the point, and we want to reneme it `AVERAGE_SAFETY_SCORE`. In addition, we want to remove nulls from our calculation, so as to avoid any error or 0 output, and we group the results by `SCHOOL_TYPE`.  
+
+```SQL Magic
+%sql SELECT "Elementary, Middle, or High School" AS SCHOOL_TYPE, \
+ROUND(AVG(SAFETY_SCORE), 2) AS AVERAGE_SAFETY_SCORE \
+FROM CHICAGO_PUBLIC_SCHOOLS \
+WHERE SAFETY_SCORE IS NOT NULL \
+GROUP BY SCHOOL_TYPE;
+```
+
