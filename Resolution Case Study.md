@@ -285,3 +285,39 @@ WHERE SAFETY_SCORE IS NOT NULL \
 GROUP BY SCHOOL_TYPE;
 ```
 
+# Problem 7  
+
+## List 5 community areas with highest % of households below poverty line  
+
+To solve this query, we will have to look at the attribute `PERCENT_HOUSEHOLDS_BELOW_POVERTY` from the `CENSUS_DATA`.  
+
+Even though, according to the question, it would be sufficient to select `COMMUNITY_AREA_NUMBER`, for visual clarity, I opted to add also the `COMMUNITY_AREA_NAME` and `PERCENT_HOUSEHOLDS_BELOW_POVERTY`. Then, we must proceed by ordering them descendingly by `PERCENT_HOUSEHOLDS_BELOW_POVERTY` and limit the results to 5.  
+
+```SQL Magic
+%sql SELECT COMMUNITY_AREA_NUMBER, COMMUNITY_AREA_NAME, PERCENT_HOUSEHOLDS_BELOW_POVERTY \
+FROM CENSUS_DATA ORDER BY PERCENT_HOUSEHOLDS_BELOW_POVERTY \
+DESC LIMIT 5;
+```
+
+# Problem 8  
+
+## Which community area is most crime prone? Display the coummunity area number only.  
+
+Although the resulting SQL query is quite simple, the way it was devised is remarkably subtle. We start by picking the `CHICAGO_CRIME_DATA` and grouping it by `COMMUNITY_AREA_NUMBER`. However, the code is concluded with the string `ORDER BY COUNT(*) DESC LIMIT 1`, whose various compoments does:  
+
+* `COUNT(*)`: Counts the number of rows (crimes) in each group;
+* `ORDER BY COUNT(*)`: 	Sorts the groups based on how many crimes they have;
+* `DESC`: Sorts the count in descending order (from most crimes to least).
+* `LIMIT 1`: Returns only the area with the most crimes.
+
+```SQL Magic
+%sql SELECT COMMUNITY_AREA_NUMBER \
+FROM CHICAGO_CRIME_DATA GROUP BY COMMUNITY_AREA_NUMBER \
+ORDER BY COUNT(*) DESC LIMIT 1;
+```
+
+# Problem 9  
+
+## Use a sub-query to find the name of the community area with highest hardship index  
+
+
