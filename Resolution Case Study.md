@@ -133,3 +133,31 @@ schools_df.to_sql("CHICAGO_PUBLIC_SCHOOLS", conn, if_exists="replace", index=Fal
 crime_df.to_sql("CHICAGO_CRIME_DATA", conn, if_exists="replace", index=False)
 ```
 
+## Part 1: Define Dataset URLs  
+
+* The URLs, or `Uniform Resource Locator` of the 3 `csv` tables, which are `census_url`, `schools_url`, and `crime_url` are established, and indicated after the equal sign between quotation marks in the upper section of the code.  
+
+## Part 2: Load Data from URLs into Pandas DataFrames  
+
+* The formula `pd.read_csv(...)` reads a CSV file directly from the URL and loads it into a DataFrame. It gets applied to the 3 tables independently in the following fashion:
+
+    * `census_df = pd.read_csv(census_url)`;
+    * `schools_df = pd.read_csv(schools_url)`;
+    * `crime_df = pd.read_csv(crime_url)`.
+ 
+## Part 3: Store the DataFrames in SQLite Tables  
+
+As the same formula is applied to the 3 tables by changing varying their names their names, I will only quote the `census_df`.
+
+* `census_df` is the pandas DataFrame that contains the `CENSUS_DATA`, on which is called the `.to_sql()` method.
+
+* `.to_sql(...)` is a pandas method used to write a DataFrame to a SQL database. It works with various database backends: SQLite, PostgreSQL, MySQL, etc.
+
+* `"CENSUS_DATA"` is the name of the SQL table to create in the database.
+
+* `conn` is the connection object to the database, which was created earlier using `conn = sqlite3.connect("FinalDB.db")`.
+
+* `if_exists="replace"` tells pandas what to do if the table `"CENSUS_DATA"` already exists in the database. Other valid option instead of `"replace"` can be `"fail"`, which raises a `ValueError` and `"append"`, which adds the DataFrame’s data to the existing table.
+
+* `index=False`: By default, pandas includes the DataFrame’s index (row labels) as a column in the SQL table. Setting `index=False` means not to include the index when writing to the table (ex: If the DataFrame has an indexes like `0, 1, 2,...`, this option prevents pandas from saving it as an extra column in the table.
+
