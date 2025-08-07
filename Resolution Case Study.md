@@ -201,9 +201,27 @@ As all the codes were compiled with SQL Magic strings, I will reported them exac
 
 ## Find the total number of crimes recorded in the CRIME table.  
 
-Its resolution is fairly easy, as it is sufficient to employ the COUNT(*) function from SQL, which computes the number of rows from the table `CHICAGO_CRIME_DATA`.  
+Its resolution is fairly easy, as it is sufficient to employ the `COUNT(*)` function from SQL, which computes the number of rows from the table `CHICAGO_CRIME_DATA`.  
 
 ```SQL Magic
 %sql SELECT COUNT(*) AS TOTAL_CRIMES FROM CHICAGO_CRIME_DATA;
 ```
+
+# Problem 2  
+
+## List community area names and numbers with per capita income less than 11000  
+
+To solve this problem, we must focus on the `CENSUS_DATA` table. We'll have to select the attributes `COMMUNITY_AREA_NAME`, `COMMUNITY_AREA_NUMBER`, and `PER_CAPITA_INCOME`. Then, we'll have to set the `WHERE` clause the attribute `PER_CAPITA_INCOME` is < 11000. Finally, we must order our results descendingly by `PER_CAPITA_INCOME`.  
+
+Following is the SQL Magic string employed.  
+
+```SQL Magic
+%sql SELECT COMMUNITY_AREA_NAME, COMMUNITY_AREA_NUMBER, PER_CAPITA_INCOME \
+FROM CENSUS_DATA WHERE PER_CAPITA_INCOME < 11000 \
+ORDER BY PER_CAPITA_INCOME DESC;
+```
+
+# Problem 3  
+
+## List all case numbers for crimes involving minors?(children are not considered minors for the purposes of crime analysis)  
 
