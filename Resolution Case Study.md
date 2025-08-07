@@ -223,5 +223,41 @@ ORDER BY PER_CAPITA_INCOME DESC;
 
 # Problem 3  
 
-## List all case numbers for crimes involving minors?(children are not considered minors for the purposes of crime analysis)  
+## List all case numbers for crimes involving minors (children are not considered minors for the purposes of crime analysis).  
+
+To answer this query, we must refer to the `CHICAGO_CRIME_DATA` table. Furthermore, we have to search for the word 'minor' among the attributes `PRIMARY_TYPE` and `DESCRIPTION`. To do so, we employ the SQL clause `WHERE`, the operator `LIKE`, and the search pattern `%MINOR%`, which will look for this specific word among the cells of the `PRIMARY_TYPE` and `DESCRIPTION` attributes, as shown below.  
+
+```SQL Magic
+%sql SELECT CASE_NUMBER, PRIMARY_TYPE, DESCRIPTION \
+FROM CHICAGO_CRIME_DATA \
+WHERE ("PRIMARY_TYPE" LIKE '%MINOR%' OR "DESCRIPTION" LIKE '%MINOR%');
+```
+
+# Problem 4  
+
+## List all kidnapping crimes involving a child  
+
+To solve this, we employ the same logic as above; however, we will use the search pattern `'%KIDNAPPING%'` for the attribute `PRIMARY_TYPE`, and `'%CHILD%'` for `DESCRIPTION`.  
+
+```SQL Magic
+%sql SELECT CASE_NUMBER, PRIMARY_TYPE, DESCRIPTION \
+FROM CHICAGO_CRIME_DATA \
+WHERE ("PRIMARY_TYPE" LIKE '%KIDNAPPING%' AND "DESCRIPTION" LIKE '%CHILD%');
+```
+
+# Problem 5  
+
+## List the kind of crimes that were recorded at schools (no repetitions).  
+
+A slight variation on the previous logic, by introducing the modifier `DISTINCT`, which returns exclusively unique rows (no duplicates). Furthermore, we will have to set the operator `LIKE` and the search patter '`%SCHOOL%'` within the attribute `LOCATION_DESCRIPTION`.
+
+```SQL Magic
+%sql SELECT DISTINCT CASE_NUMBER, PRIMARY_TYPE, DESCRIPTION, LOCATION_DESCRIPTION \
+FROM CHICAGO_CRIME_DATA \
+WHERE (LOCATION_DESCRIPTION LIKE '%SCHOOL%');
+```
+
+# Problem 6  
+
+## List the type of schools along with the average safety score for each type.  
 
