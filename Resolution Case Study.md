@@ -209,7 +209,7 @@ Its resolution is fairly easy, as it is sufficient to employ the `COUNT(*)` func
 
 # Problem 2  
 
-## List community area names and numbers with per capita income less than 11000  
+## List community area names and numbers with per capita income less than 11000.  
 
 To solve this problem, we must focus on the `CENSUS_DATA` table. We'll have to select the attributes `COMMUNITY_AREA_NAME`, `COMMUNITY_AREA_NUMBER`, and `PER_CAPITA_INCOME`. Then, we'll have to set the `WHERE` clause the attribute `PER_CAPITA_INCOME` is < 11000. Finally, we must order our results descendingly by `PER_CAPITA_INCOME`.  
 
@@ -235,7 +235,7 @@ WHERE ("PRIMARY_TYPE" LIKE '%MINOR%' OR "DESCRIPTION" LIKE '%MINOR%');
 
 # Problem 4  
 
-## List all kidnapping crimes involving a child  
+## List all kidnapping crimes involving a child.  
 
 To solve this, we employ the same logic as above; however, we will use the search pattern `'%KIDNAPPING%'` for the attribute `PRIMARY_TYPE`, and `'%CHILD%'` for `DESCRIPTION`.  
 
@@ -287,7 +287,7 @@ GROUP BY SCHOOL_TYPE;
 
 # Problem 7  
 
-## List 5 community areas with highest % of households below poverty line  
+## List 5 community areas with highest % of households below poverty line.  
 
 To solve this query, we will have to look at the attribute `PERCENT_HOUSEHOLDS_BELOW_POVERTY` from the `CENSUS_DATA`.  
 
@@ -318,7 +318,7 @@ ORDER BY COUNT(*) DESC LIMIT 1;
 
 # Problem 9  
 
-## Use a sub-query to find the name of the community area with highest hardship index  
+## Use a sub-query to find the name of the community area with highest hardship index.  
 
 A subquery is a query inside another query, and applying it to solve this question is relatively simple. Fundamentally, we must select the `COMMUNITY_AREA_NAME` from the `CENSUS_DATA` table where the `HARDSHIP_INDEX` has the maximum value. To do so, we must avail of the `MAX` aggregate function as follows.  
 
