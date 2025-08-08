@@ -331,7 +331,7 @@ WHERE HARDSHIP_INDEX = (SELECT MAX(HARDSHIP_INDEX) FROM CENSUS_DATA);
 
 ## Use a sub-query to determine the Community Area Name with most number of crimes.  
 
-Finally, a more complex question. To solve it, we need to source data from multiple tables: `CENSUS_DATA` and `CHICAGO_CRIME_DATA`. We must start by selecting the attribute `COMMUNITY_AREA_NAME` from `CENSUS_DATA`; however, to link it with the `CHICAGO_CRIME_DATA` dataset, where it is absent, we must use the attribute `COMMUNITY_AREA_NUMBER`, which is shared in both tables. Finally, we can continue exactly as we did in `Problem 8`, by grouping it by `COMMUNITY_AREA_NUMBER`, and `ORDER BY COUNT(*) DESC LIMIT 1`; however, instead of the `COMMUNITY_AREA_NUMBER_`, the query will output the `COMMUNITY_AREA_NAME`. 
+Finally, a more complex question. To solve it, we need to source data from multiple tables: `CENSUS_DATA` and `CHICAGO_CRIME_DATA`. We must start by selecting the attribute `COMMUNITY_AREA_NAME` from `CENSUS_DATA`; however, to link it with `CHICAGO_CRIME_DATA`, where it is absent, we must use the attribute `COMMUNITY_AREA_NUMBER`, which is shared in both tables. Finally, we can continue exactly as we did in `Problem 8`, by grouping it by `COMMUNITY_AREA_NUMBER`, and `ORDER BY COUNT(*) DESC LIMIT 1`; however, this time, instead of the `COMMUNITY_AREA_NUMBER`, the query will output the `COMMUNITY_AREA_NAME`. 
 
 ```SQL Magic
 %sql SELECT COMMUNITY_AREA_NAME FROM CENSUS_DATA \
