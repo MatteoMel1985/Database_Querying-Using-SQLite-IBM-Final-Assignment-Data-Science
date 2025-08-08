@@ -197,7 +197,7 @@ Finally, we are now ready to answer the problem's questions and fill out the cel
 
 As all the codes were compiled with SQL Magic strings, I will reported them exactly as written in the Jupyter Notebook, with the initial activation line `%sql`. 
 
-# Problem 1  
+# *Problem 1*  
 
 ## Find the total number of crimes recorded in the CRIME table.  
 
@@ -207,7 +207,7 @@ Its resolution is fairly easy, as it is sufficient to employ the `COUNT(*)` func
 %sql SELECT COUNT(*) AS TOTAL_CRIMES FROM CHICAGO_CRIME_DATA;
 ```
 
-# Problem 2  
+# *Problem 2*  
 
 ## List community area names and numbers with per capita income less than 11000.  
 
@@ -221,7 +221,7 @@ FROM CENSUS_DATA WHERE PER_CAPITA_INCOME < 11000 \
 ORDER BY PER_CAPITA_INCOME DESC;
 ```
 
-# Problem 3  
+# *Problem 3*  
 
 ## List all case numbers for crimes involving minors (children are not considered minors for the purposes of crime analysis).  
 
@@ -233,7 +233,7 @@ FROM CHICAGO_CRIME_DATA \
 WHERE ("PRIMARY_TYPE" LIKE '%MINOR%' OR "DESCRIPTION" LIKE '%MINOR%');
 ```
 
-# Problem 4  
+# *Problem 4*  
 
 ## List all kidnapping crimes involving a child.  
 
@@ -245,7 +245,7 @@ FROM CHICAGO_CRIME_DATA \
 WHERE ("PRIMARY_TYPE" LIKE '%KIDNAPPING%' AND "DESCRIPTION" LIKE '%CHILD%');
 ```
 
-# Problem 5  
+# *Problem 5*  
 
 ## List the kind of crimes that were recorded at schools (no repetitions).  
 
@@ -257,7 +257,7 @@ FROM CHICAGO_CRIME_DATA \
 WHERE (LOCATION_DESCRIPTION LIKE '%SCHOOL%');
 ```
 
-# Problem 6  
+# *Problem 6*  
 
 ## List the type of schools along with the average safety score for each type.  
 
@@ -285,7 +285,7 @@ WHERE SAFETY_SCORE IS NOT NULL \
 GROUP BY SCHOOL_TYPE;
 ```
 
-# Problem 7  
+# *Problem 7*  
 
 ## List 5 community areas with highest % of households below poverty line.  
 
@@ -299,7 +299,7 @@ FROM CENSUS_DATA ORDER BY PERCENT_HOUSEHOLDS_BELOW_POVERTY \
 DESC LIMIT 5;
 ```
 
-# Problem 8  
+# *Problem 8*  
 
 ## Which community area is most crime prone? Display the coummunity area number only.  
 
@@ -316,7 +316,7 @@ FROM CHICAGO_CRIME_DATA GROUP BY COMMUNITY_AREA_NUMBER \
 ORDER BY COUNT(*) DESC LIMIT 1;
 ```
 
-# Problem 9  
+# *Problem 9*  
 
 ## Use a sub-query to find the name of the community area with highest hardship index.  
 
@@ -327,7 +327,7 @@ A subquery is a query inside another query, and applying it to solve this questi
 WHERE HARDSHIP_INDEX = (SELECT MAX(HARDSHIP_INDEX) FROM CENSUS_DATA);
 ```
 
-# Problem 10  
+# *Problem 10*  
 
 ## Use a sub-query to determine the Community Area Name with most number of crimes.  
 
