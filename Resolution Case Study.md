@@ -261,7 +261,7 @@ WHERE (LOCATION_DESCRIPTION LIKE '%SCHOOL%');
 
 ## List the type of schools along with the average safety score for each type.  
 
-Solving this question would be relatively simple, if only the attribute "Safety Score " was not originally stored as text in the table; not to mention that its name was also saved with an additional space after "Score ". Ergo, before processing the query, we must first address this issue.  
+Solving this question would be relatively simple if only the attribute "Safety Score " were not originally stored as text in the table, not to mention that its name were also saved with an additional space after "Score ". Ergo, before processing the query, we must first address this issue.  
 
 The following Python line removes any leading or trailing whitespace (such as spaces, tabs, etc., in the cells) from every column name in your DataFrame `schools_df`.  
 
@@ -275,7 +275,7 @@ As we have finally removed any whitespace, we can proceed by converting the attr
 schools_df["SAFETY_SCORE"] = pd.to_numeric(schools_df["SAFETY_SCORE"], errors='coerce')
 ```
 
-Finally, as the issue is solved, we can write our SQL query. For this, we will start by selecting the attribute `"Elementary, Middle, or High School"` from the `CHICAGO_PUBLIC_SCHOOLS` table, and we will convert it into `SCHOOL_TYPE` to make it easier to digit. Then, we must apply the function `AVG` to `SAFETY_SCORE`, but we also want to round it to only 2 decimals after the point, and we want to reneme it `AVERAGE_SAFETY_SCORE`. In addition, we want to remove nulls from our calculation, so as to avoid any error or 0 output, and we group the results by `SCHOOL_TYPE`.  
+Finally, as the issue is solved, we can write our SQL query. For this, we will start by selecting the attribute `"Elementary, Middle, or High School"` from the `CHICAGO_PUBLIC_SCHOOLS` table, and we will convert it into `SCHOOL_TYPE` to make it easier to digit. Then, we must apply the function `AVG` to `SAFETY_SCORE`, but we also want to round it to only 2 decimals after the point, and we want to rename it `AVERAGE_SAFETY_SCORE`. In addition, we want to remove nulls from our calculation, so as to avoid any error or 0 output, and we group the results by `SCHOOL_TYPE`.  
 
 ```SQL Magic
 %sql SELECT "Elementary, Middle, or High School" AS SCHOOL_TYPE, \
@@ -291,7 +291,7 @@ GROUP BY SCHOOL_TYPE;
 
 To solve this query, we will have to look at the attribute `PERCENT_HOUSEHOLDS_BELOW_POVERTY` from the `CENSUS_DATA`.  
 
-Even though, according to the question, it would be sufficient to select `COMMUNITY_AREA_NUMBER`, for visual clarity, I opted to add also the `COMMUNITY_AREA_NAME` and `PERCENT_HOUSEHOLDS_BELOW_POVERTY`. Then, we must proceed by ordering them descendingly by `PERCENT_HOUSEHOLDS_BELOW_POVERTY` and limit the results to 5.  
+Even though, according to the question, it would be sufficient to select `COMMUNITY_AREA_NUMBER`, for visual clarity, I opted to also add the `COMMUNITY_AREA_NAME` and `PERCENT_HOUSEHOLDS_BELOW_POVERTY`. Then, we must proceed by ordering them descendingly by `PERCENT_HOUSEHOLDS_BELOW_POVERTY` and limit the results to 5.  
 
 ```SQL Magic
 %sql SELECT COMMUNITY_AREA_NUMBER, COMMUNITY_AREA_NAME, PERCENT_HOUSEHOLDS_BELOW_POVERTY \
@@ -303,7 +303,7 @@ DESC LIMIT 5;
 
 ## Which community area is most crime prone? Display the coummunity area number only.  
 
-Although the resulting SQL query is quite simple, the way it was devised is remarkably subtle. We start by picking the `CHICAGO_CRIME_DATA` and grouping it by `COMMUNITY_AREA_NUMBER`. However, the code is concluded with the string `ORDER BY COUNT(*) DESC LIMIT 1`, whose various compoments does:  
+Although the resulting SQL query is quite simple, the way it was devised is remarkably subtle. We start by picking the `CHICAGO_CRIME_DATA` and grouping it by `COMMUNITY_AREA_NUMBER`. However, the code is concluded with the string `ORDER BY COUNT(*) DESC LIMIT 1`, whose various components do:  
 
 * `COUNT(*)`: Counts the number of rows (crimes) in each group;
 * `ORDER BY COUNT(*)`: 	Sorts the groups based on how many crimes they have;
@@ -319,5 +319,27 @@ ORDER BY COUNT(*) DESC LIMIT 1;
 # Problem 9  
 
 ## Use a sub-query to find the name of the community area with highest hardship index  
+
+A subquery is a query inside another query, and applying it to solve this question is relatively simple. Fundamentally, we must select the `COMMUNITY_AREA_NAME` from the `CENSUS_DATA` table where the `HARDSHIP_INDEX` has the maximum value. To do so, we must avail of the `MAX` aggregate function as follows.  
+
+```SQL Magic
+%sql SELECT COMMUNITY_AREA_NAME FROM CENSUS_DATA \
+WHERE HARDSHIP_INDEX = (SELECT MAX(HARDSHIP_INDEX) FROM CENSUS_DATA);
+```
+
+# Problem 10  
+
+## Use a sub-query to determine the Community Area Name with most number of crimes.  
+
+Finally, a more complex question. To solve it, we need to source data from multiple tables: `CENSUS_DATA` and `CHICAGO_CRIME_DATA`. We must start by selecting the attribute `COMMUNITY_AREA_NAME` from `CENSUS_DATA`; however, to link it with the `CHICAGO_CRIME_DATA` dataset, where it is absent, we must use the attribute `COMMUNITY_AREA_NUMBER`, which is shared in both tables. Finally, we can continue exactly as we did in `Problem 8`, by grouping it by `COMMUNITY_AREA_NUMBER`, and `ORDER BY COUNT(*) DESC LIMIT 1`; however, instead of the `COMMUNITY_AREA_NUMBER_`, the query will output the `COMMUNITY_AREA_NAME`. 
+
+```SQL Magic
+%sql SELECT COMMUNITY_AREA_NAME FROM CENSUS_DATA \
+WHERE COMMUNITY_AREA_NUMBER = \
+(SELECT COMMUNITY_AREA_NUMBER FROM CHICAGO_CRIME_DATA \
+GROUP BY COMMUNITY_AREA_NUMBER \
+ORDER BY COUNT(*) DESC LIMIT 1);
+```
+
 
 
