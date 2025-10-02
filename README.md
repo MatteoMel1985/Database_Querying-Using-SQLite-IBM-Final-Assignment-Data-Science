@@ -4,6 +4,6 @@
 
 ![Skills_Network](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMSkillsNetwork-PY0221EN-Coursera/images/image.png)  
 
-On the `Jupyter Notebooks` folder are uploaded all the `ipynb` files for consultation.  
+In the `Jupyter Notebooks` folder are uploaded all the `ipynb` files for consultation.  
 
 Please consult `Resolution Case Study.md` for a thorough explanation of how the tasks requested in `FinalProject.ipynb` were resolved. 
